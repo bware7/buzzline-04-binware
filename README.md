@@ -17,22 +17,24 @@ All three applications produce live charts to illustrate the data.
 
 ## My Custom Consumer: Sentiment Flow Analysis
 
-I created a consumer that shows how sentiment changes over time for different message categories. It reads from a Kafka topic and creates a line chart with different colors for each category (humor, news, personal, etc.).
+I created a consumer that shows how sentiment changes over time for different message categories. It reads from a Kafka topic and creates a line chart with different colors for each category (food, humor, tech, travel, entertainment, gaming, other).
 
 ### What It Does
 - Tracks sentiment by category over time
 - Shows live updates as messages come in
 - Uses different colored lines for each category
-- Displays simple statistics
+- Displays message counts for each category
+- Updates every second with new data
 
 ### Why This Is Interesting
-You can see which types of messages tend to be more positive or negative, and watch how sentiment changes throughout the day.
+You can see which types of messages tend to be more positive or negative, and watch how sentiment patterns develop in real-time across different categories.
 
 ### Technical Details
-- **Data Source**: Kafka topic
+- **Data Source**: Kafka topic (project_json)
 - **Chart Type**: Multi-line chart
 - **Data Used**: sentiment, category, timestamp
 - **Processing**: Store sentiment values by category and update the chart in real-time
+- **Visualization**: Live animated chart with colored lines for each category
 
 ---
 
@@ -126,6 +128,48 @@ source .venv/bin/activate
 python3 -m pip install --upgrade pip
 python3 -m pip install --upgrade -r requirements.txt
 ```
+
+---
+
+## Running My Custom Consumer
+
+### Start the Required Producer
+First, start the project producer (don't modify this):
+
+Windows:
+```shell
+.venv\Scripts\activate
+py -m producers.project_producer_case
+```
+
+Mac/Linux:
+```shell
+source .venv/bin/activate
+python3 -m producers.project_producer_case
+```
+
+### Start My Custom Consumer
+Then start my sentiment flow consumer:
+
+Windows:
+```shell
+.venv\Scripts\activate
+py -m consumers.project_consumer_binware
+```
+
+Mac/Linux:
+```shell
+source .venv/bin/activate
+python3 -m consumers.project_consumer_binware
+```
+
+You should see a live chart showing sentiment trends by category!
+
+### What You'll See
+- A live chart with different colored lines for each message category
+- Real-time updates as messages stream in from the producer
+- Message counts showing how many data points each category has
+- Sentiment values ranging from 0.0 (negative) to 1.0 (positive)
 
 ---
 
@@ -249,42 +293,6 @@ How does the visualization code get changed based on the type of data and type o
 Which aspects are similar between the different types of data?
 
 When done, remember to kill the associated terminals for the producer and consumer.
-
----
-
-## Running My Custom Consumer
-
-### Start the Required Producer
-First, start the project producer (don't modify this):
-
-Windows:
-```shell
-.venv\Scripts\activate
-py -m producers.project_producer_case
-```
-
-Mac/Linux:
-```shell
-source .venv/bin/activate
-python3 -m producers.project_producer_case
-```
-
-### Start My Custom Consumer
-Then start my sentiment flow consumer:
-
-Windows:
-```shell
-.venv\Scripts\activate
-py -m consumers.project_consumer_binware
-```
-
-Mac/Linux:
-```shell
-source .venv/bin/activate
-python3 -m consumers.project_consumer_binware
-```
-
-You should see a live chart showing sentiment trends by category!
 
 ---
 
